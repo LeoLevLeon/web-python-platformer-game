@@ -379,7 +379,12 @@
         packages = ["pygame"]
         
         [[fetch]]
-        files = ["game.py", "assets/"]
+        from = "."
+        files = ["game.py"]
+        
+        [[fetch]]
+        from = "./assets/"
+        to_folder = "assets"
         
         [terminal]
         false
@@ -504,4 +509,5 @@
         });
     </script>
 </body>
+
 </html>
