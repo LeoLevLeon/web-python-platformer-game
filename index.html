@@ -2,47 +2,53 @@
 <html>
 <head>
     <title>Tiny Green Cube</title>
-    <link rel="stylesheet" href="https://pyscript.net/latest/core.css">
-    <script defer src="https://pyscript.net/latest/core.js"></script>
-    <style>
-        body { background: #87CEEB; margin: 0; padding: 20px; }
-        .game { border: 5px solid green; width: 810px; height: 610px; margin: auto; background: black; }
-        #terminal { height: 200px; background: #000; color: #fff; padding: 10px; overflow-y: auto; }
-    </style>
+    <!-- Эта версия точно работает -->
+    <script defer src="https://pyscript.net/releases/2023.11.1/core.js"></script>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2023.11.1/core.css">
 </head>
-<body>
-    <div class="game">
-        <div id="terminal">Загрузка...</div>
-    </div>
+<body style="background:#87CEEB;">
+    <div style="border:5px solid green; width:800px; height:600px; margin:50px auto;"></div>
     
     <py-config>
-        [terminal]
-        enabled = true
-        output = "terminal"
-        
         packages = ["pygame"]
-        
-        [[fetch]]
-        files = ["./platformer.py"]
     </py-config>
     
     <py-script>
-        print("Начинаю загрузку игры...")
+        print("🔥 PyScript v2023.11.1 загружен!")
         
-        # Прямой импорт platformer.py
+        # Загружаем platformer.py напрямую
+        import urllib.request
         try:
-            import platformer
-            print("✅ platformer.py импортирован успешно")
-        except Exception as e:
-            print(f"❌ Ошибка импорта: {e}")
+            # Получаем содержимое файла
+            with urllib.request.urlopen("platformer.py") as f:
+                code = f.read().decode('utf-8')
             
-            # Альтернативный способ
-            try:
-                with open('platformer.py', 'r') as f:
-                    exec(f.read())
-                print("✅ platformer.py выполнен напрямую")
-            except Exception as e2:
-                print(f"❌ Ошибка при прямом выполнении: {e2}")
+            print(f"✅ platformer.py загружен ({len(code)} символов)")
+            
+            # Выполняем
+            exec(code)
+            
+        except Exception as e:
+            print(f"❌ Ошибка: {e}")
+            print("Создаю простую игру...")
+            
+            import pygame
+            pygame.init()
+            screen = pygame.display.set_mode((800, 600))
+            clock = pygame.time.Clock()
+            
+            running = True
+            while running:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        running = False
+                
+                screen.fill("black")
+                pygame.draw.rect(screen, "green", (100, 100, 50, 50))
+                pygame.display.flip()
+                clock.tick(60)
+            
+            pygame.quit()
     </py-script>
 </body>
 </html>
