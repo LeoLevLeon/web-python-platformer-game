@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Tiny Green Cube</title>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tiny Green Cube</title>
     <link rel="stylesheet" href="https://pyscript.net">
     <script type="module" src="https://pyscript.net"></script>
 </head>
@@ -23,6 +28,25 @@
     
 </body>
 </html>
+</head>
+<body style="margin: 0; padding: 20px; background: #87CEEB;">
+    
+    <div style="width: 810px; height: 610px; border: 5px solid green; margin: 50px auto; background: black;">
+        <!-- Pygame отрисует всё здесь автоматически при использовании type="py-game" -->
+    </div>
+    
+    <py-config>
+        packages = ["pygame-ce"]
+        [[fetch]]
+        files = ["./platformer.py"]
+    </py-config>
+
+    <!-- Используем специальный тип для игр -->
+    <script type="py-game" src="platformer.py"></script>
+    
+</body>
+</html>
+
 
 
 
