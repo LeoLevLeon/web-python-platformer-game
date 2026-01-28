@@ -1,3 +1,5 @@
+print("PYTHON СТАРТОВАЛ!") # Отладка
+
 import pygame
 import random
 import webbrowser
@@ -595,4 +597,5 @@ asyncio.run(main())
 
 
 pygame.quit()
+
 
