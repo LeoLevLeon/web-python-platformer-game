@@ -2,54 +2,114 @@
 <html>
 <head>
     <title>Tiny Green Cube</title>
-    <!-- Эта версия точно работает -->
-    <script defer src="https://pyscript.net/releases/2023.11.1/core.js"></script>
+    
+    <!-- Стабильная версия PyScript -->
     <link rel="stylesheet" href="https://pyscript.net/releases/2023.11.1/core.css">
+    <script defer src="https://pyscript.net/releases/2023.11.1/core.js"></script>
+    
+    <style>
+        body {
+            background: #87CEEB;
+            margin: 0;
+            padding: 20px;
+        }
+        .game-frame {
+            border: 5px solid green;
+            width: 800px;
+            height: 600px;
+            margin: 20px auto;
+            background: black;
+        }
+    </style>
 </head>
-<body style="background:#87CEEB;">
-    <div style="border:5px solid green; width:800px; height:600px; margin:50px auto;"></div>
+<body>
+    
+    <h2 style="text-align:center; color:darkgreen;">Tiny Green Cube Platformer</h2>
+    
+    <div class="game-frame">
+        <!-- Игра появится здесь -->
+    </div>
     
     <py-config>
         packages = ["pygame"]
     </py-config>
     
     <py-script>
-        print("🔥 PyScript v2023.11.1 загружен!")
+        print("🎮 Запускаю Tiny Green Cube...")
         
-        # Загружаем platformer.py напрямую
-        import urllib.request
+        # Синхронная загрузка файла
         try:
-            # Получаем содержимое файла
-            with urllib.request.urlopen("platformer.py") as f:
-                code = f.read().decode('utf-8')
+            # Используем стандартные средства Python для чтения файла
+            import urllib.request
             
-            print(f"✅ platformer.py загружен ({len(code)} символов)")
+            # Пробуем загрузить файл
+            response = urllib.request.urlopen("platformer.py")
+            game_code = response.read().decode('utf-8')
+            print(f"✅ platformer.py загружен ({len(game_code)} символов)")
             
-            # Выполняем
-            exec(code)
+            # Выполняем код игры
+            exec(game_code)
             
         except Exception as e:
-            print(f"❌ Ошибка: {e}")
-            print("Создаю простую игру...")
+            print(f"❌ Ошибка загрузки файла: {e}")
+            print("🔄 Создаю демо-версию игры...")
             
+            # Простая демо-игра
             import pygame
+            
             pygame.init()
             screen = pygame.display.set_mode((800, 600))
+            pygame.display.set_caption("Tiny Green Cube - Demo")
             clock = pygame.time.Clock()
+            
+            player = pygame.Rect(100, 100, 40, 40)
+            player_color = (0, 255, 0)
+            
+            print("✅ Демо-игра создана!")
+            print("Управление: Стрелки ← → для движения, ПРОБЕЛ для прыжка")
             
             running = True
             while running:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         running = False
+                    elif event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_SPACE:
+                            print("Прыжок!")
                 
-                screen.fill("black")
-                pygame.draw.rect(screen, "green", (100, 100, 50, 50))
+                # Управление
+                keys = pygame.key.get_pressed()
+                if keys[pygame.K_LEFT]: 
+                    player.x -= 5
+                if keys[pygame.K_RIGHT]: 
+                    player.x += 5
+                
+                # Гравитация (простая)
+                player.y += 3
+                if player.bottom > 500:  # Пол
+                    player.bottom = 500
+                
+                # Отрисовка
+                screen.fill((0, 0, 0))
+                
+                # Пол
+                pygame.draw.rect(screen, (100, 100, 100), (0, 500, 800, 100))
+                
+                # Игрок
+                pygame.draw.rect(screen, player_color, player)
+                
+                # Текст
+                font = pygame.font.SysFont(None, 36)
+                text = font.render("Tiny Green Cube - Demo", True, player_color)
+                screen.blit(text, (250, 50))
+                
                 pygame.display.flip()
                 clock.tick(60)
             
             pygame.quit()
+            print("🎮 Демо-игра завершена")
     </py-script>
+    
 </body>
 </html>
 
