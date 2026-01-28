@@ -17,14 +17,20 @@
     <py-config>
         packages = ["pygame-ce"]
         [[fetch]]
+        # Оставляем файл здесь, чтобы PyScript его скачал во внутреннюю память
         files = ["platformer.py"]
     </py-config>
 
-    <py-script src="platformer.py"></py-script>
+<!-- Убираем src! Пишем просто импорт внутри тега -->
+    <py-script>
+    import platformer
+    </py-script>
+
 
     
 </body>
 </html>
+
 
 
 
