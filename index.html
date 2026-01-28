@@ -1,28 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Tiny Green Cube</title>
-    <!-- ВАЖНО: Используйте версию 2024.1.1 или новее -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/pyscript/latest/pyscript.css">
-    <script defer src="https://cdn.jsdelivr.net/pyscript/latest/pyscript.js"></script>
+    <link rel="stylesheet" href="https://pyscript.net/latest/core.css">
+    <script defer src="https://pyscript.net/latest/core.js"></script>
+    <style>
+        body { background: #87CEEB; margin: 0; padding: 20px; }
+        .game { border: 5px solid green; width: 810px; height: 610px; margin: auto; background: black; }
+        #terminal { height: 200px; background: #000; color: #fff; padding: 10px; overflow-y: auto; }
+    </style>
 </head>
-<body style="margin: 0; padding: 20px; background: #87CEEB;">
-    
-    <!-- Просто зеленое окно -->
-    <div style="width: 810px; height: 610px; border: 5px solid green; margin: 50px auto; background: black;">
-        <div id="game"></div>
+<body>
+    <div class="game">
+        <div id="terminal">Загрузка...</div>
     </div>
     
     <py-config>
+        [terminal]
+        enabled = true
+        output = "terminal"
+        
         packages = ["pygame"]
+        
+        [[fetch]]
+        files = ["./platformer.py"]
     </py-config>
     
     <py-script>
-import platformer
-# Игра запустится автоматически через import
+        print("Начинаю загрузку игры...")
+        
+        # Прямой импорт platformer.py
+        try:
+            import platformer
+            print("✅ platformer.py импортирован успешно")
+        except Exception as e:
+            print(f"❌ Ошибка импорта: {e}")
+            
+            # Альтернативный способ
+            try:
+                with open('platformer.py', 'r') as f:
+                    exec(f.read())
+                print("✅ platformer.py выполнен напрямую")
+            except Exception as e2:
+                print(f"❌ Ошибка при прямом выполнении: {e2}")
     </py-script>
-    
 </body>
-
 </html>
+
