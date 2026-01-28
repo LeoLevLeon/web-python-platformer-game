@@ -397,193 +397,200 @@ level_song_3 = load_asset("assets/sounds/Game_song.mp3")
 level_song_4 = load_asset("assets/sounds/Fon_song.mp3")
 level_song_5 = load_asset("assets/sounds/fon.mp3")
 
+async def main():
+    # Если ты используешь глобальные переменные, объяви их здесь в начале функции
+    global running, game_started, current_level, score, button_1, button_2, button_3, screen, fullscreen, sound_play
+
+    # Основной игровой цикл
+    running = True
+    while running:
+        # Обработка событий
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE and player_sprite.on_ground == True :
+                    jump_sound.play()
+                    player_sprite.y_velocity = -7
+                    player_sprite.on_ground = False
+
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                
+                if not game_started:
+
+                    if button_1.is_over(pygame.mouse.get_pos()):
+                        button_sound.play()
+                        current_level += 1
+                        load_level(current_level)
+                        button_1 = None
+                        button_2 = None
+                        button_3 = None
+                        game_started = True
+                    
+                    elif button_2.is_over(pygame.mouse.get_pos()):
+                        button_sound.play()
+                        if not fullscreen:
+                            screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN) 
+                            fullscreen = True
+                        else:
+                            screen = pygame.display.set_mode((WIDTH, HEIGHT))
+                            fullscreen = False
+                    
+                    elif button_3.is_over(pygame.mouse.get_pos()):
+                        button_sound.play()
+                        if not sound_play:
+                            sound_play = True
+                        else:
+                            sound_play = False
+
+                elif game_completed:
+                    if button_4.is_over(pygame.mouse.get_pos()):
+                        webbrowser.open("https://t.me/Infoplatformer_bot")
 
 
-# Основной игровой цикл
-running = True
-while running:
-    # Обработка событий
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE and player_sprite.on_ground == True :
-                jump_sound.play()
-                player_sprite.y_velocity = -7
-                player_sprite.on_ground = False
 
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+        if not sound_play:
+            jump_sound.stop()
+            coin_sound.stop()
+            death_sound.stop()
+            win_sound.stop()
+            button_sound.stop()
+            menu_music.stop()
+            end_music.stop()
+            level_song_1.stop()
+            level_song_2.stop()
+            level_song_3.stop()
+            level_song_4.stop()
+            level_song_5.stop()
+
+
+        # Если игра завершена, показываем сообщение
+        if game_completed:
+            level_song_5.stop()
+            end_music.play()
+            screen.blit(bg_2, (0, 0))
+            completion_text = font.render("Спасибо, что сыграли в нашу игру! :)", True, "black")
+            score_text = font.render(f"Оставьте отзыв:", True, "blue")
+            button_4 = Button(325, 375, "#2067c8", "#528af2", "Ссылка на бота")
+            screen.blit(completion_text, (WIDTH//2 - completion_text.get_width()//2, HEIGHT//2 - 50))
+            screen.blit(score_text, (WIDTH//2 - score_text.get_width()//2, HEIGHT//2 + 10))
+            button_4.update_hover(pygame.mouse.get_pos())
+            button_4.draw_button(screen)
+            pygame.display.flip()
             
-            if not game_started:
-
-                if button_1.is_over(pygame.mouse.get_pos()):
-                    button_sound.play()
-                    current_level += 1
-                    load_level(current_level)
-                    button_1 = None
-                    button_2 = None
-                    button_3 = None
-                    game_started = True
-                
-                elif button_2.is_over(pygame.mouse.get_pos()):
-                    button_sound.play()
-                    if not fullscreen:
-                        screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN) 
-                        fullscreen = True
-                    else:
-                        screen = pygame.display.set_mode((WIDTH, HEIGHT))
-                        fullscreen = False
-                
-                elif button_3.is_over(pygame.mouse.get_pos()):
-                    button_sound.play()
-                    if not sound_play:
-                        sound_play = True
-                    else:
-                        sound_play = False
-
-            elif game_completed:
-                if button_4.is_over(pygame.mouse.get_pos()):
-                    webbrowser.open("https://t.me/Infoplatformer_bot")
-
-
-
-    if not sound_play:
-        jump_sound.stop()
-        coin_sound.stop()
-        death_sound.stop()
-        win_sound.stop()
-        button_sound.stop()
-        menu_music.stop()
-        end_music.stop()
-        level_song_1.stop()
-        level_song_2.stop()
-        level_song_3.stop()
-        level_song_4.stop()
-        level_song_5.stop()
-
-
-    # Если игра завершена, показываем сообщение
-    if game_completed:
-        level_song_5.stop()
-        end_music.play()
-        screen.blit(bg_2, (0, 0))
-        completion_text = font.render("Спасибо, что сыграли в нашу игру! :)", True, "black")
-        score_text = font.render(f"Оставьте отзыв:", True, "blue")
-        button_4 = Button(325, 375, "#2067c8", "#528af2", "Ссылка на бота")
-        screen.blit(completion_text, (WIDTH//2 - completion_text.get_width()//2, HEIGHT//2 - 50))
-        screen.blit(score_text, (WIDTH//2 - score_text.get_width()//2, HEIGHT//2 + 10))
-        button_4.update_hover(pygame.mouse.get_pos())
-        button_4.draw_button(screen)
-        pygame.display.flip()
+            # Ждем нажатия клавиши для выхода
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_ESCAPE]:
+                running = False
+            continue
         
-        # Ждем нажатия клавиши для выхода
+        if not game_started:
+            menu_music.play()
+            screen.blit(bg_6, (0, 0))
+            # Отображаем заголовок
+            title_font = pygame.font.SysFont(None, 48)
+            title_text = title_font.render("Tiny Green Cube", True, "green")
+            screen.blit(title_text, (WIDTH//2 - title_text.get_width()//2, 100))
+            title_text_ru = title_font.render("Крошечный зеленый кубик", True, "green")
+            screen.blit(title_text_ru, (WIDTH//2 - title_text_ru.get_width()//2, 200))
+            
+            # Отображаем кнопки если они не None
+            if button_1:
+                button_1.update_hover(pygame.mouse.get_pos())
+                button_1.draw_button(screen)
+            if button_2:
+                button_2.update_hover(pygame.mouse.get_pos())
+                button_2.draw_button(screen)
+            if button_3:
+                button_3.update_hover(pygame.mouse.get_pos())
+                button_3.draw_button(screen)
+            
+            # Отображаем подсказку
+            hint_font = pygame.font.SysFont(None, 24)
+            hint_text = hint_font.render("Игра создана в рамках проекта ко дню науки 2026", True, "black")
+            screen.blit(hint_text, (WIDTH//2 - hint_text.get_width()//2, HEIGHT - 50))
+
+            pygame.display.flip()
+            clock.tick(FPS)
+            continue
+        else:
+            menu_music.stop()
+
+        # Управление
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_ESCAPE]:
-            running = False
-        continue
-    
-    if not game_started:
-        menu_music.play()
-        screen.blit(bg_6, (0, 0))
-        # Отображаем заголовок
-        title_font = pygame.font.SysFont(None, 48)
-        title_text = title_font.render("Tiny Green Cube", True, "green")
-        screen.blit(title_text, (WIDTH//2 - title_text.get_width()//2, 100))
-        title_text_ru = title_font.render("Крошечный зеленый кубик", True, "green")
-        screen.blit(title_text_ru, (WIDTH//2 - title_text_ru.get_width()//2, 200))
+        player_sprite.x_velocity = 0
+        if keys[pygame.K_LEFT]:
+            player_sprite.x_velocity = -5
+        if keys[pygame.K_RIGHT]:
+            player_sprite.x_velocity = 5
         
-        # Отображаем кнопки если они не None
-        if button_1:
-            button_1.update_hover(pygame.mouse.get_pos())
-            button_1.draw_button(screen)
-        if button_2:
-            button_2.update_hover(pygame.mouse.get_pos())
-            button_2.draw_button(screen)
-        if button_3:
-            button_3.update_hover(pygame.mouse.get_pos())
-            button_3.draw_button(screen)
+        # Гравитация
+        player_sprite.y_velocity += 0.3
         
-        # Отображаем подсказку
-        hint_font = pygame.font.SysFont(None, 24)
-        hint_text = hint_font.render("Игра создана в рамках проекта ко дню науки 2026", True, "black")
-        screen.blit(hint_text, (WIDTH//2 - hint_text.get_width()//2, HEIGHT - 50))
+        # Обновление
+        player_sprite.update()
+        enemies.update()
 
+        
+        
+        # Проверка коллизий
+        check_collision_platforms(player_sprite, platforms_list)
+        check_collision_enemies(player_sprite, enemies_list)
+        check_collision_collectibles(player_sprite, collectibles_list)
+        
+
+        # Проверка завершения уровня
+        check_level_completion()
+        
+        # Отрисовка
+        if current_level == 1:
+            level_song_1.play()
+            screen.blit(bg_1, (0, 0))
+        
+        elif current_level == 2:
+            level_song_1.stop()
+            level_song_2.play()
+            screen.blit(bg_3, (0, 0))
+        
+        elif current_level == 3:
+            level_song_2.stop()
+            level_song_3.play()
+            screen.blit(bg_4, (0, 0))
+        
+        elif current_level == 4:
+            level_song_3.stop()
+            level_song_4.play()
+            screen.blit(bg_5, (0, 0))
+        
+        elif current_level == 5:
+            level_song_4.stop()
+            level_song_5.play()
+            screen.blit(bg_7, (0, 0))
+        
+
+        # Отрисовываем все спрайты
+        platforms.draw(screen)
+        enemies.draw(screen)
+        collectibles.draw(screen)
+        player_sprite_group.draw(screen)
+
+        # Отображение счёта и уровня
+        score_text = font.render(f"Счёт: {score}", True, "black")
+        level_text = font.render(f"Уровень: {current_level}/{max_level}", True, "blue")
+        
+        screen.blit(score_text, (10, 10))
+        screen.blit(level_text, (10, 50))
+
+        
+        # Обновление экрана
         pygame.display.flip()
+        
+        # Установка частоты кадров
         clock.tick(FPS)
-        continue
-    else:
-        menu_music.stop()
 
-    # Управление
-    keys = pygame.key.get_pressed()
-    player_sprite.x_velocity = 0
-    if keys[pygame.K_LEFT]:
-        player_sprite.x_velocity = -5
-    if keys[pygame.K_RIGHT]:
-        player_sprite.x_velocity = 5
-    
-    # Гравитация
-    player_sprite.y_velocity += 0.3
-    
-    # Обновление
-    player_sprite.update()
-    enemies.update()
+        await asyncio.sleep(0) 
 
-    
-    
-    # Проверка коллизий
-    check_collision_platforms(player_sprite, platforms_list)
-    check_collision_enemies(player_sprite, enemies_list)
-    check_collision_collectibles(player_sprite, collectibles_list)
-    
-
-    # Проверка завершения уровня
-    check_level_completion()
-    
-    # Отрисовка
-    if current_level == 1:
-        level_song_1.play()
-        screen.blit(bg_1, (0, 0))
-    
-    elif current_level == 2:
-        level_song_1.stop()
-        level_song_2.play()
-        screen.blit(bg_3, (0, 0))
-    
-    elif current_level == 3:
-        level_song_2.stop()
-        level_song_3.play()
-        screen.blit(bg_4, (0, 0))
-    
-    elif current_level == 4:
-        level_song_3.stop()
-        level_song_4.play()
-        screen.blit(bg_5, (0, 0))
-    
-    elif current_level == 5:
-        level_song_4.stop()
-        level_song_5.play()
-        screen.blit(bg_7, (0, 0))
-    
-
-    # Отрисовываем все спрайты
-    platforms.draw(screen)
-    enemies.draw(screen)
-    collectibles.draw(screen)
-    player_sprite_group.draw(screen)
-
-    # Отображение счёта и уровня
-    score_text = font.render(f"Счёт: {score}", True, "black")
-    level_text = font.render(f"Уровень: {current_level}/{max_level}", True, "blue")
-    
-    screen.blit(score_text, (10, 10))
-    screen.blit(level_text, (10, 50))
-
-    
-    # Обновление экрана
-    pygame.display.flip()
-    
-    # Установка частоты кадров
-    clock.tick(FPS)
+if __name__ == "__main__":
+    asyncio.run(main())
 
 pygame.quit()
