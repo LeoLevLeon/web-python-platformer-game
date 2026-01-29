@@ -2,7 +2,44 @@
     "packages": ["pygame-ce"],
     "fetch": [
         { "files": ["platformer.py"] },
-        { "from_archive": "assets.zip", "to_folder": "." }
+        { 
+            "from": "assets/images", 
+            "to_folder": "assets/images", 
+            "files": [
+                "spike_sprite_2.png", 
+                "saw_sprite.png", 
+                "player_sprite.png",
+                "coin_sprite.png",
+                "bg_1.png",
+                "bg_2.png",
+                "bg_3.png",
+                "bg_4.png",
+                "bg_5.png",
+                "bg_6.png",
+                "bg_7.png"
+            ] 
+        },
+        { 
+            "from": "assets/sounds", 
+            "to_folder": "assets/sounds", 
+            "files": [
+                "Saw-song_1.mp3",
+                "Push_button.mp3",
+                "New_level_soun.mp3",
+                "moneta.mp3",
+                "Jump_sound_1.mp3",
+                "Hit_sound_3.mp3",
+                "Happ_song.mp3",
+                "Game_song.mp3",
+                "Game_end_song.mp3",
+                "Fon_song.mp3",
+                "Cool_Song.mp3",
+                "fon.mp3",
+                "Beep-beep_melody.mp3"
+            ] 
+        }
     ]
 }
+
+
 
