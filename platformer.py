@@ -1,4 +1,8 @@
 print("PYTHON СТАРТОВАЛ!") # Отладка
+import os
+print("Список файлов в системе:", os.listdir("."))
+if os.path.exists("assets"):
+    print("Содержимое assets:", os.listdir("assets"))
 
 import pygame
 import random
@@ -26,20 +30,20 @@ score = 0
 number_of_button = 0
 sound_play = True
 
-def load_asset(path, fallback_color=None):
-    #Загрузка ресурса с обработкой ошибок для веб-версии
+def load_asset(path, fallback_color=(255, 0, 255)): # Яркий розовый — цвет ошибки
     try:
         if path.endswith('.png'):
-            return pygame.image.load(path)
-        elif path.endswith('.mp3'):
+            return pygame.image.load(path).convert_alpha()
+        elif path.endswith(('.mp3', '.wav')):
             return pygame.mixer.Sound(path)
-    except:
-        # Создаем заглушку если файл не найден
-        if fallback_color:
+    except Exception as e:
+        print(f"Ошибка загрузки {path}: {e}")
+        if path.endswith('.png'):
             surface = pygame.Surface((50, 50))
             surface.fill(fallback_color)
             return surface
-        return None
+        return None # Для звука None безопаснее, если есть проверка
+
 
 # Класс для игрока
 class Player(pygame.sprite.Sprite):
@@ -597,5 +601,6 @@ asyncio.run(main())
 
 
 pygame.quit()
+
 
 
