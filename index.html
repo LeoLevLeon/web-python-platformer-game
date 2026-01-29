@@ -14,27 +14,30 @@
         <!-- Место для игры -->
     </div>
     
-    <py-config>
-        packages = ["pygame-ce"]
-    
-        [[fetch]]
-        files = ["platformer.py"]
-    
-        [[fetch]]
-        from_archive = "assets.zip"
-        to_folder = "."
-    </py-config>
-
-
-<!-- Убираем src! Пишем просто импорт внутри тега -->
-    <py-script>
+    <script type="py" config='{
+        "packages": ["pygame-ce"],
+        "fetch": [
+            { "files": ["platformer.py"] },
+            { "from_archive": "assets.zip" }
+        ]
+    }'>
+    import os
     import platformer
-    </py-script>
+    
+    # Отладочный принт в консоль, чтобы убедиться, что файлы распаковались
+    if os.path.exists("assets"):
+        print("УРА! Папка assets найдена!")
+        print("Внутри images:", os.listdir("assets/images"))
+    else:
+        print("Папка assets всё ещё не видна в корне.")
+    </script>
+
 
 
     
 </body>
 </html>
+
 
 
 
