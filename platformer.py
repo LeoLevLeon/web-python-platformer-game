@@ -32,11 +32,20 @@ score = 0
 number_of_button = 0
 sound_play = True
 
-def load_asset(path, fallback_color=(255, 0, 255)): # Яркий розовый — цвет ошибки
-    if path.endswith('.png'):
-        return pygame.image.load(path).convert_alpha()
-    elif path.endswith(('.mp3', '.wav')):
-        return pygame.mixer.Sound(path)
+def load_asset(path, fallback_color=None):
+    #Загрузка ресурса с обработкой ошибок для веб-версии
+    try:
+        if path.endswith('.png'):
+            return pygame.image.load(path)
+        elif path.endswith('.mp3'):
+            return pygame.mixer.Sound(path)
+    except:
+        # Создаем заглушку если файл не найден
+        if fallback_color:
+            surface = pygame.Surface((50, 50))
+            surface.fill(fallback_color)
+            return surface
+        return None
    
 
 # Класс для игрока
@@ -398,7 +407,6 @@ level_song_4 = load_asset("assets/sounds/Fon_song.mp3")
 level_song_5 = load_asset("assets/sounds/fon.mp3")
 
 async def main():
-    # Если ты используешь глобальные переменные, объяви их здесь в начале функции
     global running, game_started, current_level, score, button_1, button_2, button_3, screen, fullscreen, sound_play
 
     # Основной игровой цикл
@@ -505,7 +513,7 @@ async def main():
                 button_3.update_hover(pygame.mouse.get_pos())
                 button_3.draw_button(screen)
             
-            # Отображаем подсказку
+        
             hint_font = pygame.font.SysFont(None, 24)
             hint_text = hint_font.render("Игра создана в рамках проекта ко дню науки 2026", True, "black")
             screen.blit(hint_text, (WIDTH//2 - hint_text.get_width()//2, HEIGHT - 50))
@@ -595,6 +603,7 @@ asyncio.run(main())
 
 
 pygame.quit()
+
 
 
 
