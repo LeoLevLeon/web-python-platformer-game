@@ -25,7 +25,7 @@
             "files": [
                 "Saw-song_1.mp3",
                 "Push_button.mp3",
-                "New_level_soun.mp3",
+                "New_level_sound.mp3",
                 "moneta.mp3",
                 "Jump_sound_1.mp3",
                 "Hit_sound_3.mp3",
@@ -40,6 +40,7 @@
         }
     ]
 }
+
 
 
 
