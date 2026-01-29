@@ -3,6 +3,8 @@ import os
 print("Список файлов в системе:", os.listdir("."))
 if os.path.exists("assets"):
     print("Содержимое assets:", os.listdir("assets"))
+print(f"Пытаюсь найти: {os.path.abspath('assets/images/spike_sprite_2.png')}")
+print(f"Файл существует? {os.path.exists('assets/images/spike_sprite_2.png')}")
 
 import pygame
 import random
@@ -31,19 +33,11 @@ number_of_button = 0
 sound_play = True
 
 def load_asset(path, fallback_color=(255, 0, 255)): # Яркий розовый — цвет ошибки
-    try:
-        if path.endswith('.png'):
-            return pygame.image.load(path).convert_alpha()
-        elif path.endswith(('.mp3', '.wav')):
-            return pygame.mixer.Sound(path)
-    except Exception as e:
-        print(f"Ошибка загрузки {path}: {e}")
-        if path.endswith('.png'):
-            surface = pygame.Surface((50, 50))
-            surface.fill(fallback_color)
-            return surface
-        return None # Для звука None безопаснее, если есть проверка
-
+    if path.endswith('.png'):
+        return pygame.image.load(path).convert_alpha()
+    elif path.endswith(('.mp3', '.wav')):
+        return pygame.mixer.Sound(path)
+   
 
 # Класс для игрока
 class Player(pygame.sprite.Sprite):
@@ -601,6 +595,7 @@ asyncio.run(main())
 
 
 pygame.quit()
+
 
 
 
