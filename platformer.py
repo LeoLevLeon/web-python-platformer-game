@@ -21,7 +21,7 @@ pygame.mixer.init()
 WIDTH = 800
 HEIGHT = 600
 FPS = 60
-
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 # Глобальные переменные уровня
 current_level = 0
 max_level = 5
@@ -361,7 +361,7 @@ def load_level(level):
         buttons_sprite_group.add(button)
 
 
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+
 pygame.display.set_caption("Платформер")
 clock = pygame.time.Clock()
 
@@ -603,6 +603,7 @@ asyncio.run(main())
 
 
 pygame.quit()
+
 
 
 
