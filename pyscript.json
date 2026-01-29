@@ -1,0 +1,7 @@
+{
+    "packages": ["pygame-ce"],
+    "fetch": [
+        { "files": ["platformer.py"] },
+        { "from_archive": "assets.zip" }
+    ]
+}
