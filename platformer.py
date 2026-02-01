@@ -437,12 +437,7 @@ async def main():
                     
                     elif button_2.is_over(pygame.mouse.get_pos()):
                         button_sound.play()
-                        if not fullscreen:
-                            screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN) 
-                            fullscreen = True
-                        else:
-                            screen = pygame.display.set_mode((WIDTH, HEIGHT))
-                            fullscreen = False
+                        print("К сожалению полный экран пока не доступен! :(")
                     
                     elif button_3.is_over(pygame.mouse.get_pos()):
                         button_sound.play()
@@ -603,6 +598,7 @@ asyncio.run(main())
 
 
 pygame.quit()
+
 
 
 
