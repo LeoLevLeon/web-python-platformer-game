@@ -23,6 +23,7 @@
             "from": "assets/sounds", 
             "to_folder": "assets/sounds", 
             "files": [
+                "moneta.wav",
                 "Saw-song_1.mp3",
                 "Push_button.mp3",
                 "New_level_sound.mp3",
@@ -40,6 +41,7 @@
         }
     ]
 }
+
 
 
 
