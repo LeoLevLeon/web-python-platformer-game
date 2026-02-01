@@ -16,12 +16,21 @@
     
     <!-- Указываем путь к файлу конфига через атрибут config -->
     <script type="py" config="./pyscript.json">
+    import asyncio
     import os
-    # Проверка распаковки
-    print("Файлы в корне:", os.listdir("."))
     
-    import platformer
+    async def start_game():
+        # Даем браузеру 100мс, чтобы точно отрисовать <canvas id="canvas">
+        await asyncio.sleep(0.1) 
+        
+        # Теперь импортируем и запускаем
+        import platformer
+        await platformer.main()
+    
+    # Запускаем асинхронно
+    asyncio.ensure_future(start_game())
     </script>
+
 
 
 
@@ -29,6 +38,7 @@
     
 </body>
 </html>
+
 
 
 
