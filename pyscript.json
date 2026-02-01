@@ -1,7 +1,7 @@
 {
     "packages": ["pygame-ce"],
     "fetch": [
-        { "files": ["button_test.py"] },
+        { "files": ["platformer.py"] },
         { 
             "from": "assets/images", 
             "to_folder": "assets/images", 
@@ -41,6 +41,7 @@
         }
     ]
 }
+
 
 
 
