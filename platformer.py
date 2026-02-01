@@ -15,7 +15,7 @@ IS_WEB = True
 
 # Инициализация Pygame
 pygame.init()
-pygame.mixer.init()
+#pygame.mixer.init()
 
 # Константы-параметры окна
 WIDTH = 800
@@ -235,7 +235,7 @@ def check_collision_platforms(player, platforms):
 def check_collision_enemies(player, enemies_list):
     for enemy in enemies_list:
         if player.rect.colliderect(enemy.rect):
-            death_sound.play()
+  #          death_sound.play()
             # При столкновении с врагом возвращаем игрока на старт
             player.rect.x = player_start_positions[current_level][0]
             player.rect.y = player_start_positions[current_level][1]
@@ -244,7 +244,7 @@ def check_collision_enemies(player, enemies_list):
             return True
     for spike in enemies_list:
         if player.rect.colliderect(spike.rect):
-            death_sound.play()
+   #         death_sound.play()
             # При столкновении с врагом возвращаем игрока на старт
             player.rect.x = player_start_positions[current_level][0]
             player.rect.y = player_start_positions[current_level][1]
@@ -260,7 +260,7 @@ def check_collision_collectibles(player, collectibles_list):
     
     for collectible in collectibles_list[:]:
         if player.rect.colliderect(collectible.rect):
-            coin_sound.play()
+#            coin_sound.play()
             # Убираем этот объект из всех групп
             collectible.kill()
             # Убираем этот объект из списка
@@ -281,7 +281,7 @@ def check_level_completion():
     if len(collectibles_list) == 0:
         if current_level < max_level:
             current_level += 1
-            win_sound.play()
+ #           win_sound.play()
             load_level(current_level)
         else:
             game_completed = True
@@ -362,7 +362,7 @@ def load_level(level):
 
 
 
-pygame.display.set_caption("Платформер")
+
 clock = pygame.time.Clock()
 
 # Создаем шрифт для отображения счета и уровня
@@ -393,18 +393,18 @@ bg_5 = load_asset("assets/images/bg_5.png")
 bg_6 = load_asset("assets/images/bg_6.png")
 bg_7 = load_asset("assets/images/bg_7.png")
 
-jump_sound = load_asset("assets/sounds/Jump_sound_1.mp3")
-coin_sound = load_asset("assets/sounds/moneta.mp3")
-death_sound = load_asset("assets/sounds/Hit_sound_3.mp3")
-win_sound = load_asset("assets/sounds/New_level_sound.mp3")
-button_sound = load_asset("assets/sounds/Push_button.mp3")
-menu_music = load_asset("assets/sounds/Beep-beep_melody.mp3")
-end_music = load_asset("assets/sounds/Game_end_song.mp3")
-level_song_1 = load_asset("assets/sounds/Cool_song.mp3")
-level_song_2 = load_asset("assets/sounds/Happ_song.mp3")
-level_song_3 = load_asset("assets/sounds/Game_song.mp3")
-level_song_4 = load_asset("assets/sounds/Fon_song.mp3")
-level_song_5 = load_asset("assets/sounds/fon.mp3")
+#jump_sound = load_asset("assets/sounds/Jump_sound_1.mp3")
+#coin_sound = load_asset("assets/sounds/moneta.mp3")
+#death_sound = load_asset("assets/sounds/Hit_sound_3.mp3")
+#win_sound = load_asset("assets/sounds/New_level_sound.mp3")
+#button_sound = load_asset("assets/sounds/Push_button.mp3")
+#menu_music = load_asset("assets/sounds/Beep-beep_melody.mp3")
+#end_music = load_asset("assets/sounds/Game_end_song.mp3")
+#level_song_1 = load_asset("assets/sounds/Cool_song.mp3")
+#level_song_2 = load_asset("assets/sounds/Happ_song.mp3")
+#level_song_3 = load_asset("assets/sounds/Game_song.mp3")
+#level_song_4 = load_asset("assets/sounds/Fon_song.mp3")
+#level_song_5 = load_asset("assets/sounds/fon.mp3")
 
 async def main():
     if not pygame.display.get_init():
@@ -436,7 +436,7 @@ async def main():
                 if not game_started:
 
                     if button_1.is_over(pygame.mouse.get_pos()):
-                        button_sound.play()
+ #                       button_sound.play()
                         current_level += 1
                         load_level(current_level)
                         button_1 = None
@@ -445,11 +445,11 @@ async def main():
                         game_started = True
                     
                     elif button_2.is_over(pygame.mouse.get_pos()):
-                        button_sound.play()
+  #                      button_sound.play()
                         print("К сожалению полный экран пока не доступен! :(")
                     
                     elif button_3.is_over(pygame.mouse.get_pos()):
-                        button_sound.play()
+   #                     button_sound.play()
                         if not sound_play:
                             sound_play = True
                         else:
@@ -461,25 +461,25 @@ async def main():
 
 
 
-        if not sound_play:
-            jump_sound.stop()
-            coin_sound.stop()
-            death_sound.stop()
-            win_sound.stop()
-            button_sound.stop()
-            menu_music.stop()
-            end_music.stop()
-            level_song_1.stop()
-            level_song_2.stop()
-            level_song_3.stop()
-            level_song_4.stop()
-            level_song_5.stop()
+    #    if not sound_play:
+     #       jump_sound.stop()
+      #      coin_sound.stop()
+       #     death_sound.stop()
+        #    win_sound.stop()
+         #   button_sound.stop()
+          #  menu_music.stop()
+           # end_music.stop()
+            #level_song_1.stop()
+            #level_song_2.stop()
+            #level_song_3.stop()
+            #level_song_4.stop()
+            #level_song_5.stop()
 
 
         # Если игра завершена, показываем сообщение
         if game_completed:
-            level_song_5.stop()
-            end_music.play()
+            #level_song_5.stop()
+            #end_music.play()
             screen.blit(bg_2, (0, 0))
             completion_text = font.render("Спасибо, что сыграли в нашу игру! :)", True, "black")
             score_text = font.render(f"Оставьте отзыв:", True, "blue")
@@ -497,7 +497,7 @@ async def main():
             continue
         
         if not game_started:
-            menu_music.play()
+            #menu_music.play()
             screen.blit(bg_6, (0, 0))
             # Отображаем заголовок
             title_font = pygame.font.SysFont(None, 48)
@@ -556,32 +556,32 @@ async def main():
         
         # Отрисовка
         if current_level == 1:
-            if not pygame.mixer.get_busy():
-                level_song_1.play()
+            #if not pygame.mixer.get_busy():
+             #   level_song_1.play()
             screen.blit(bg_1, (0, 0))
         
         elif current_level == 2:
-            if not pygame.mixer.get_busy():
-                level_song_1.stop()
-                level_song_2.play()
+            #if not pygame.mixer.get_busy():
+             #   level_song_1.stop()
+              #  level_song_2.play()
             screen.blit(bg_3, (0, 0))
         
         elif current_level == 3:
-            if not pygame.mixer.get_busy():
-                level_song_2.stop()
-                level_song_3.play()
+            #if not pygame.mixer.get_busy():
+             #   level_song_2.stop()
+              #  level_song_3.play()
             screen.blit(bg_4, (0, 0))
         
         elif current_level == 4:
-            if not pygame.mixer.get_busy():
-                level_song_3.stop()
-                level_song_4.play()
+            #if not pygame.mixer.get_busy():
+             #   level_song_3.stop()
+              #  level_song_4.play()
             screen.blit(bg_5, (0, 0))
         
         elif current_level == 5:
-            if not pygame.mixer.get_busy():
-                level_song_4.stop()
-                level_song_5.play()
+            #if not pygame.mixer.get_busy():
+             #   level_song_4.stop()
+              #  level_song_5.play()
             screen.blit(bg_7, (0, 0))
         
 
@@ -612,6 +612,7 @@ asyncio.ensure_future(main())
 
 
 pygame.quit()
+
 
 
 
