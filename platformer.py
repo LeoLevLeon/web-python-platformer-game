@@ -21,7 +21,7 @@ pygame.mixer.init()
 WIDTH = 800
 HEIGHT = 600
 FPS = 60
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+
 # Глобальные переменные уровня
 current_level = 0
 max_level = 5
@@ -407,6 +407,8 @@ level_song_4 = load_asset("assets/sounds/Fon_song.mp3")
 level_song_5 = load_asset("assets/sounds/fon.mp3")
 
 async def main():
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("Платформер")
     global running, game_started, current_level, score, button_1, button_2, button_3, screen, fullscreen, sound_play
 
     # Основной игровой цикл
@@ -603,6 +605,7 @@ asyncio.ensure_future(main())
 
 
 pygame.quit()
+
 
 
 
