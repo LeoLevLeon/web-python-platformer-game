@@ -11,26 +11,17 @@
 <body style="margin: 0; padding: 20px; background: #87CEEB;">
     
     <div style="width: 810px; height: 610px; border: 5px solid green; margin: 50px auto; background: black;">
-        <canvas id="canvas" width="800" height="600"></canvas>
+        <canvas id="canvas" tabindex="-1"></canvas>
     </div>
     
     <!-- Указываем путь к файлу конфига через атрибут config -->
     <script type="py" config="./pyscript.json">
-    import asyncio
     import os
+    # Проверка распаковки
+    print("Файлы в корне:", os.listdir("."))
     
-    async def start_game():
-        # Даем браузеру 100мс, чтобы точно отрисовать <canvas id="canvas">
-        await asyncio.sleep(0.1) 
-        
-        # Теперь импортируем и запускаем
-        import platformer
-        await platformer.main()
-    
-    # Запускаем асинхронно
-    asyncio.ensure_future(start_game())
+    import platformer
     </script>
-
 
 
 
@@ -38,18 +29,3 @@
     
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
