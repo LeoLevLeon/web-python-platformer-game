@@ -564,8 +564,8 @@ async def main():
             screen.blit(bg_3, (0, 0))
         
         elif current_level == 3:
-             level_song_2.stop()
-             level_song_3.play()
+            level_song_2.stop()
+            level_song_3.play()
             screen.blit(bg_4, (0, 0))
         
         elif current_level == 4:
@@ -606,6 +606,7 @@ asyncio.ensure_future(main())
 
 
 pygame.quit()
+
 
 
 
