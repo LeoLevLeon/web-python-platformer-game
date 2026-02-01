@@ -5,6 +5,7 @@ if os.path.exists("assets"):
     print("Содержимое assets:", os.listdir("assets"))
 print(f"Пытаюсь найти: {os.path.abspath('assets/images/spike_sprite_2.png')}")
 print(f"Файл существует? {os.path.exists('assets/images/spike_sprite_2.png')}")
+os.environ['SDL_AUDIODRIVER'] = 'dummy' # Переключает звук в "пустышку"
 
 import pygame
 import random
@@ -614,6 +615,7 @@ asyncio.ensure_future(main())
 
 
 pygame.quit()
+
 
 
 
