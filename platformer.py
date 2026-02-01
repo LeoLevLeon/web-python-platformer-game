@@ -547,27 +547,32 @@ async def main():
         
         # Отрисовка
         if current_level == 1:
-            level_song_1.play()
+            if not pygame.mixer.get_busy():
+                level_song_1.play()
             screen.blit(bg_1, (0, 0))
         
         elif current_level == 2:
-            level_song_1.stop()
-            level_song_2.play()
+            if not pygame.mixer.get_busy():
+                level_song_1.stop()
+                level_song_2.play()
             screen.blit(bg_3, (0, 0))
         
         elif current_level == 3:
-            level_song_2.stop()
-            level_song_3.play()
+            if not pygame.mixer.get_busy():
+                level_song_2.stop()
+                level_song_3.play()
             screen.blit(bg_4, (0, 0))
         
         elif current_level == 4:
-            level_song_3.stop()
-            level_song_4.play()
+            if not pygame.mixer.get_busy():
+                level_song_3.stop()
+                level_song_4.play()
             screen.blit(bg_5, (0, 0))
         
         elif current_level == 5:
-            level_song_4.stop()
-            level_song_5.play()
+            if not pygame.mixer.get_busy():
+                level_song_4.stop()
+                level_song_5.play()
             screen.blit(bg_7, (0, 0))
         
 
@@ -594,10 +599,11 @@ async def main():
         await asyncio.sleep(0) 
 
 
-asyncio.run(main())
+asyncio.ensure_future(main())
 
 
 pygame.quit()
+
 
 
 
