@@ -21,7 +21,7 @@ pygame.mixer.init()
 WIDTH = 800
 HEIGHT = 600
 FPS = 60
-
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 # Глобальные переменные уровня
 current_level = 0
 max_level = 5
@@ -362,7 +362,7 @@ def load_level(level):
 
 
 
-
+pygame.display.set_caption("Платформер")
 clock = pygame.time.Clock()
 
 # Создаем шрифт для отображения счета и уровня
@@ -393,30 +393,21 @@ bg_5 = load_asset("assets/images/bg_5.png")
 bg_6 = load_asset("assets/images/bg_6.png")
 bg_7 = load_asset("assets/images/bg_7.png")
 
-#jump_sound = load_asset("assets/sounds/Jump_sound_1.mp3")
-#coin_sound = load_asset("assets/sounds/moneta.mp3")
-#death_sound = load_asset("assets/sounds/Hit_sound_3.mp3")
-#win_sound = load_asset("assets/sounds/New_level_sound.mp3")
-#button_sound = load_asset("assets/sounds/Push_button.mp3")
-#menu_music = load_asset("assets/sounds/Beep-beep_melody.mp3")
-#end_music = load_asset("assets/sounds/Game_end_song.mp3")
-#level_song_1 = load_asset("assets/sounds/Cool_song.mp3")
-#level_song_2 = load_asset("assets/sounds/Happ_song.mp3")
-#level_song_3 = load_asset("assets/sounds/Game_song.mp3")
-#level_song_4 = load_asset("assets/sounds/Fon_song.mp3")
-#level_song_5 = load_asset("assets/sounds/fon.mp3")
+jump_sound = load_asset("assets/sounds/Jump_sound_1.mp3")
+coin_sound = load_asset("assets/sounds/moneta.mp3")
+death_sound = load_asset("assets/sounds/Hit_sound_3.mp3")
+win_sound = load_asset("assets/sounds/New_level_sound.mp3")
+button_sound = load_asset("assets/sounds/Push_button.mp3")
+menu_music = load_asset("assets/sounds/Beep-beep_melody.mp3")
+end_music = load_asset("assets/sounds/Game_end_song.mp3")
+level_song_1 = load_asset("assets/sounds/Cool_song.mp3")
+level_song_2 = load_asset("assets/sounds/Happ_song.mp3")
+level_song_3 = load_asset("assets/sounds/Game_song.mp3")
+level_song_4 = load_asset("assets/sounds/Fon_song.mp3")
+level_song_5 = load_asset("assets/sounds/fon.mp3")
 
 async def main():
-    if not pygame.display.get_init():
-        pygame.display.init()
-    
-    # Прямо перед set_mode выведем в консоль, видит ли скрипт канвас
-    from js import document
-    print("Ищу канвас:", document.getElementById("canvas"))
-    
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Платформер")
-    global running, game_started, current_level, score, button_1, button_2, button_3, fullscreen, sound_play
+    global running, game_started, current_level, score, button_1, button_2, button_3, screen, fullscreen, sound_play
 
     # Основной игровой цикл
     running = True
@@ -446,7 +437,12 @@ async def main():
                     
                     elif button_2.is_over(pygame.mouse.get_pos()):
                         button_sound.play()
-                        print("К сожалению полный экран пока не доступен! :(")
+                        if not fullscreen:
+                            screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN) 
+                            fullscreen = True
+                        else:
+                            screen = pygame.display.set_mode((WIDTH, HEIGHT))
+                            fullscreen = False
                     
                     elif button_3.is_over(pygame.mouse.get_pos()):
                         button_sound.play()
@@ -454,6 +450,7 @@ async def main():
                             sound_play = True
                         else:
                             sound_play = False
+
                 elif game_completed:
                     if button_4.is_over(pygame.mouse.get_pos()):
                         webbrowser.open("https://t.me/Infoplatformer_bot")
@@ -602,23 +599,7 @@ async def main():
         await asyncio.sleep(0) 
 
 
-asyncio.ensure_future(main())
+asyncio.run(main())
 
 
 pygame.quit()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
