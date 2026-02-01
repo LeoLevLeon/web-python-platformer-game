@@ -14,7 +14,9 @@ import asyncio
 IS_WEB = True
 
 # Инициализация Pygame
-pygame.init()
+pygame.display.init()
+pygame.font.init()
+#pygame.init()
 #pygame.mixer.init()
 
 # Константы-параметры окна
@@ -612,6 +614,7 @@ asyncio.ensure_future(main())
 
 
 pygame.quit()
+
 
 
 
