@@ -409,7 +409,7 @@ level_song_5 = load_asset("assets/sounds/fon.mp3")
 async def main():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Платформер")
-    global running, game_started, current_level, score, button_1, button_2, button_3, screen, fullscreen, sound_play
+    global running, game_started, current_level, score, button_1, button_2, button_3, fullscreen, sound_play
 
     # Основной игровой цикл
     running = True
@@ -605,6 +605,7 @@ asyncio.ensure_future(main())
 
 
 pygame.quit()
+
 
 
 
