@@ -5,7 +5,6 @@ if os.path.exists("assets"):
     print("Содержимое assets:", os.listdir("assets"))
 print(f"Пытаюсь найти: {os.path.abspath('assets/images/spike_sprite_2.png')}")
 print(f"Файл существует? {os.path.exists('assets/images/spike_sprite_2.png')}")
-os.environ['SDL_AUDIODRIVER'] = 'dummy' # Переключает звук в "пустышку"
 
 import pygame
 import random
@@ -15,10 +14,8 @@ import asyncio
 IS_WEB = True
 
 # Инициализация Pygame
-pygame.display.init()
-pygame.font.init()
-#pygame.init()
-#pygame.mixer.init()
+pygame.init()
+pygame.mixer.init()
 
 # Константы-параметры окна
 WIDTH = 800
@@ -238,7 +235,7 @@ def check_collision_platforms(player, platforms):
 def check_collision_enemies(player, enemies_list):
     for enemy in enemies_list:
         if player.rect.colliderect(enemy.rect):
-  #          death_sound.play()
+            death_sound.play()
             # При столкновении с врагом возвращаем игрока на старт
             player.rect.x = player_start_positions[current_level][0]
             player.rect.y = player_start_positions[current_level][1]
@@ -247,7 +244,7 @@ def check_collision_enemies(player, enemies_list):
             return True
     for spike in enemies_list:
         if player.rect.colliderect(spike.rect):
-   #         death_sound.play()
+            death_sound.play()
             # При столкновении с врагом возвращаем игрока на старт
             player.rect.x = player_start_positions[current_level][0]
             player.rect.y = player_start_positions[current_level][1]
@@ -263,7 +260,7 @@ def check_collision_collectibles(player, collectibles_list):
     
     for collectible in collectibles_list[:]:
         if player.rect.colliderect(collectible.rect):
-#            coin_sound.play()
+            coin_sound.play()
             # Убираем этот объект из всех групп
             collectible.kill()
             # Убираем этот объект из списка
@@ -284,7 +281,7 @@ def check_level_completion():
     if len(collectibles_list) == 0:
         if current_level < max_level:
             current_level += 1
- #           win_sound.play()
+            win_sound.play()
             load_level(current_level)
         else:
             game_completed = True
@@ -439,7 +436,7 @@ async def main():
                 if not game_started:
 
                     if button_1.is_over(pygame.mouse.get_pos()):
- #                       button_sound.play()
+                        button_sound.play()
                         current_level += 1
                         load_level(current_level)
                         button_1 = None
@@ -448,41 +445,40 @@ async def main():
                         game_started = True
                     
                     elif button_2.is_over(pygame.mouse.get_pos()):
-  #                      button_sound.play()
+                        button_sound.play()
                         print("К сожалению полный экран пока не доступен! :(")
                     
                     elif button_3.is_over(pygame.mouse.get_pos()):
-   #                     button_sound.play()
+                        button_sound.play()
                         if not sound_play:
                             sound_play = True
                         else:
                             sound_play = False
-
                 elif game_completed:
                     if button_4.is_over(pygame.mouse.get_pos()):
                         webbrowser.open("https://t.me/Infoplatformer_bot")
 
 
 
-    #    if not sound_play:
-     #       jump_sound.stop()
-      #      coin_sound.stop()
-       #     death_sound.stop()
-        #    win_sound.stop()
-         #   button_sound.stop()
-          #  menu_music.stop()
-           # end_music.stop()
-            #level_song_1.stop()
-            #level_song_2.stop()
-            #level_song_3.stop()
-            #level_song_4.stop()
-            #level_song_5.stop()
+        if not sound_play:
+            jump_sound.stop()
+            coin_sound.stop()
+            death_sound.stop()
+            win_sound.stop()
+            button_sound.stop()
+            menu_music.stop()
+            end_music.stop()
+            level_song_1.stop()
+            level_song_2.stop()
+            level_song_3.stop()
+            level_song_4.stop()
+            level_song_5.stop()
 
 
         # Если игра завершена, показываем сообщение
         if game_completed:
-            #level_song_5.stop()
-            #end_music.play()
+            level_song_5.stop()
+            end_music.play()
             screen.blit(bg_2, (0, 0))
             completion_text = font.render("Спасибо, что сыграли в нашу игру! :)", True, "black")
             score_text = font.render(f"Оставьте отзыв:", True, "blue")
@@ -500,7 +496,7 @@ async def main():
             continue
         
         if not game_started:
-            #menu_music.play()
+            menu_music.play()
             screen.blit(bg_6, (0, 0))
             # Отображаем заголовок
             title_font = pygame.font.SysFont(None, 48)
@@ -559,32 +555,27 @@ async def main():
         
         # Отрисовка
         if current_level == 1:
-            #if not pygame.mixer.get_busy():
-             #   level_song_1.play()
+            level_song_1.play()
             screen.blit(bg_1, (0, 0))
         
         elif current_level == 2:
-            #if not pygame.mixer.get_busy():
-             #   level_song_1.stop()
-              #  level_song_2.play()
+            level_song_1.stop()
+            level_song_2.play()
             screen.blit(bg_3, (0, 0))
         
         elif current_level == 3:
-            #if not pygame.mixer.get_busy():
-             #   level_song_2.stop()
-              #  level_song_3.play()
+             level_song_2.stop()
+             level_song_3.play()
             screen.blit(bg_4, (0, 0))
         
         elif current_level == 4:
-            #if not pygame.mixer.get_busy():
-             #   level_song_3.stop()
-              #  level_song_4.play()
+            level_song_3.stop()
+            level_song_4.play()
             screen.blit(bg_5, (0, 0))
         
         elif current_level == 5:
-            #if not pygame.mixer.get_busy():
-             #   level_song_4.stop()
-              #  level_song_5.play()
+            level_song_4.stop()
+            level_song_5.play()
             screen.blit(bg_7, (0, 0))
         
 
@@ -615,6 +606,7 @@ asyncio.ensure_future(main())
 
 
 pygame.quit()
+
 
 
 
