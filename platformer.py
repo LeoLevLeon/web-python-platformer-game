@@ -407,6 +407,13 @@ level_song_4 = load_asset("assets/sounds/Fon_song.mp3")
 level_song_5 = load_asset("assets/sounds/fon.mp3")
 
 async def main():
+    if not pygame.display.get_init():
+        pygame.display.init()
+    
+    # Прямо перед set_mode выведем в консоль, видит ли скрипт канвас
+    from js import document
+    print("Ищу канвас:", document.getElementById("canvas"))
+    
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Платформер")
     global running, game_started, current_level, score, button_1, button_2, button_3, fullscreen, sound_play
@@ -605,6 +612,7 @@ asyncio.ensure_future(main())
 
 
 pygame.quit()
+
 
 
 
