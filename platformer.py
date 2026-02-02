@@ -13,15 +13,10 @@ import asyncio
 
 IS_WEB = True
 
-# Инициализация Pygame
-pygame.init()
-pygame.mixer.init()
-
 # Константы-параметры окна
 WIDTH = 800
 HEIGHT = 600
 FPS = 60
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
 # Глобальные переменные уровня
 current_level = 0
 max_level = 5
@@ -362,7 +357,7 @@ def load_level(level):
 
 
 
-pygame.display.set_caption("Платформер")
+
 clock = pygame.time.Clock()
 
 # Создаем шрифт для отображения счета и уровня
@@ -407,8 +402,14 @@ level_song_4 = load_asset("assets/sounds/Fon_song.mp3")
 level_song_5 = load_asset("assets/sounds/fon.mp3")
 
 async def main():
-    global running, game_started, current_level, score, button_1, button_2, button_3, screen, fullscreen, sound_play
-
+    global running, game_started, current_level, score, button_1, button_2, button_3, screen, fullscreen, sound_play, WIDTH, HEIGHT
+    # Инициализация Pygame
+    pygame.init()
+    pygame.mixer.init()
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("Платформер")
+    print("Pygame инициализирован успешно!")
+    
     # Основной игровой цикл
     running = True
     while running:
@@ -603,3 +604,4 @@ asyncio.run(main())
 
 
 pygame.quit()
+
