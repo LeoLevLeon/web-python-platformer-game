@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Tiny Green Cube</title>
+    <!-- Официальные стабильные ссылки -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.11.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.11.1/core.js"></script>
+</head>
+
+<body style="margin: 0; padding: 20px; background: #87CEEB;">
+    
+    <div style="width: 810px; height: 610px; border: 5px solid green; margin: 50px auto; background: black;">
+        <canvas id="canvas" tabindex="-1"></canvas>
+    </div>
+    
+    <!-- Указываем путь к файлу конфига через атрибут config -->
+    <script type="py" config="./pyscript.json">
+    import asyncio
+    import os
+    print("Файлы в корне:", os.listdir("."))
+    import platformer 
+    await main()
+    </script>
+
+
+
+
+    
+</body>
+</html>
