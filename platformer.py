@@ -600,9 +600,8 @@ async def main():
         await asyncio.sleep(0) 
 
 
-await main()
-
-
+asyncio.ensure_future(main())
 pygame.quit()
+
 
 
