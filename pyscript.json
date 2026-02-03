@@ -1,5 +1,4 @@
 {
-    "interpreter": "pyodide",
     "packages": ["pygame-ce"],
     "fetch": [
         { "files": ["platformer.py"] },
@@ -42,6 +41,7 @@
         }
     ]
 }
+
 
 
 
