@@ -3,6 +3,7 @@ import pygame
 import asyncio
 
 async def main():
+    await asyncio.sleep(0.1) # Ждем прогрузки DOM
     # 1. Инициализация (СТРОГО ВНУТРИ main)
     pygame.init()
     pygame.mixer.init()
@@ -46,5 +47,6 @@ async def main():
         # КРИТИЧЕСКИ ВАЖНО
         await asyncio.sleep(0)
     
+
 
 
