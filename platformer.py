@@ -1,3 +1,4 @@
+ptint("пайтон запущен")
 import pygame
 import asyncio
 
@@ -45,3 +46,4 @@ async def main():
         # КРИТИЧЕСКИ ВАЖНО
         await asyncio.sleep(0)
     
+
