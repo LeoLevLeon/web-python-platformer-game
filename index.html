@@ -16,11 +16,12 @@
     </div>
     
     <!-- Указываем путь к файлу конфига через атрибут config -->
-    <script type="py" config="./pyscript.json">
+    <script type="py" config="./pyscript.json" terminal>
     import asyncio
     import os
     print("Файлы в корне:", os.listdir("."))
     import platformer 
+    await main()
     </script>
 
 
@@ -29,5 +30,6 @@
     
 </body>
 </html>
+
 
 
