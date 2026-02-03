@@ -44,5 +44,4 @@ async def main():
         
         # КРИТИЧЕСКИ ВАЖНО
         await asyncio.sleep(0)
-
-await main()
+    
